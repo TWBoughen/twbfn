@@ -1,3 +1,4 @@
+#' PMF of 
 #' @export
 dppa = Vectorize(function(x, n0,a,b,eps,lambda,log=T){
   g = Vectorize(function(x,n0=1,a=1,b=1,eps=0){

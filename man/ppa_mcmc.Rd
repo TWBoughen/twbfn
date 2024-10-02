@@ -2,7 +2,7 @@
 % Please edit documentation in R/mcmc.R
 \name{ppa_mcmc}
 \alias{ppa_mcmc}
-\title{MCMC Sampling for GPA Model using C++}
+\title{MCMC Sampling for PPA Model}
 \usage{
 ppa_mcmc(
   data,
@@ -20,7 +20,8 @@ ppa_mcmc(
 )
 }
 \arguments{
-\item{data}{A numeric matrix containing the data.}
+\item{data}{A numeric matrix containing the data, with the first column being the unique degrees and the second being the
+counts of those degrees.}
 
 \item{init_n0}{Initial value for the parameter \code{n0}.}
 
@@ -30,13 +31,13 @@ ppa_mcmc(
 
 \item{init_lambda}{Initial value for the parameter \code{lambda}.}
 
-\item{n_iter}{Number of MCMC iterations (default is 10000).}
+\item{n_iter}{Number of iterations (default is 10000).}
 
-\item{a_sd}{Standard deviation for \code{a} proposals (default is 0.1).}
+\item{a_sd}{Initial standard deviation for \code{a} proposals (default is 0.1).}
 
-\item{b_sd}{Standard deviation for \code{b} proposals (default is 0.1).}
+\item{b_sd}{Initial standard deviation for \code{b} proposals (default is 0.1).}
 
-\item{n0_sd}{Standard deviation for \code{n0} proposals (default is 1).}
+\item{n0_sd}{Initial standard deviation for \code{n0} proposals (default is 1).}
 
 \item{adapt_interval}{Interval for adapting the proposal variance (default is 1000).}
 
@@ -45,9 +46,14 @@ ppa_mcmc(
 \item{adapt_factor}{Adaptation factor for the proposal variance (default is 1.05).}
 }
 \value{
-A list containing the results of the MCMC simulation.
+A list containing the results.
 }
 \description{
-This function wraps the C++ implementation of the MCMC sampler for the GPA model.
-It performs MCMC sampling using the provided input data and parameters.
+This function attempts to estimate the parameters of the preferential attachment function
+from the sequence of degrees of a network given that it was generated using the model
+from Rudas.
+}
+\details{
+The model is somewhat adaptive in that the proposal variance is increased for all parameters
+if the acceptance rate is higher than the target acceptance rate, and decreases when it is below.
 }

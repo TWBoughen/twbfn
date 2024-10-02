@@ -1,3 +1,14 @@
+#' Sampling from PPA model
+#' 
+#' @param N Number of network generation steps to run.
+#' @param a Value of a in PA function
+#' @param b Value of b in PA function
+#' @param n0 Value of n0 in PA function
+#' @param smplr function to be used to sample edges (default is NULL and will sample a tree)
+#' @param ... parameters to be passes to \code{smplr}
+#' @param init_size initial size of the network (only used when \code{smplr}!=NULL)
+#' @param quiet boolean 
+#'
 #' @export
 sample_ppa = function(N,a,b,n0,smplr=NULL, ..., init_size=25, quiet=T){
   if(is.null(smplr)){

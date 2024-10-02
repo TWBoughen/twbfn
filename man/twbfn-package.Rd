@@ -25,9 +25,3 @@ Maintainer: Thomas W Boughen <t.w.boughen1@newcastle.ac.uk>
 \seealso{
   Optional links to other man pages
 }
-\examples{
-  \dontrun{
-     ## Optional simple examples of the most important functions
-     ## These can be in \dontrun{} and \donttest{} blocks.   
-  }
-}
