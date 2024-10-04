@@ -43,11 +43,11 @@ Maintainer: Thomas W Boughen <t.w.boughen1@newcastle.ac.uk>
   
   \bold{Misc}
   
-  \link{deg_count}{ Get degree counts} 
+  \code{\link{deg_count}}{ Get degree counts} 
   
-  \link{deg_dist}{ Get empirical degree distribution}
+  \code{\link{deg_dist}}{ Get empirical degree distribution}
   
-  \link{deg_surv}{ Get empirical degree survival}
+  \code{\link{deg_surv}}{ Get empirical degree survival}
   
   \code{\link{find_lambda} }
 }

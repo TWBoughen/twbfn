@@ -6,25 +6,15 @@ using namespace Rcpp;
 NumericVector g_cpp(NumericVector x, double n0 = 1, double a = 1, double b = 1, double eps = 0) {
   int n = x.size();
   NumericVector result(n);
-  
-  for (int i = 0; i < n; ++i) {
-    if (x[i] < n0) {
-      result[i] = pow(x[i], a) + eps;
-    } else {
-      result[i] = pow(std::max(0.0, n0), a) + b * (x[i] - std::max(0.0, n0)) + eps;
-    }
-  }
-  
+  result = ifelse(x<n0, pow(x,a) + eps, pow(std::max(0.0,n0),a) + b*(x-std::max(0.0,n0)) + eps);
   return result;
 }
 
 // lambda_obj_cpp: computes the objective function for a given l
 // [[Rcpp::export]]
 double lambda_obj_cpp(double l, double n0, double a, double b, double eps, int mx = 1000) {
-  NumericVector n(mx);
-  for (int i = 0; i < mx; ++i) {
-    n[i] = i + 1;
-  }
+  IntegerVector n_int = seq_len(mx);
+  NumericVector n (n_int);
   NumericVector lgs = log(1 + l / g_cpp(n, n0, a, b, eps));
   NumericVector cumsum_lgs = cumsum(lgs);
   double result = sum(exp(-cumsum_lgs));
@@ -111,10 +101,9 @@ double llh_cpp(NumericMatrix data, double lambda, double a, double b, double n0,
 // joint_prior_cpp: computes the joint prior probability
 // [[Rcpp::export]]
 double joint_prior_cpp(double a, double b, double n0) {
-  double log_prior_a = R::dnorm(a, 0, 10, true);
-  double log_prior_b = R::dgamma(b, 1, 100, true);
-  double log_prior_n0 = R::dgamma(n0, 1, 1000, true);
-  
+  double log_prior_a = dnorm(NumericVector::create(a), 0, 10, true)[0];
+  double log_prior_b = dgamma(NumericVector::create(b), 1, 1/100, true)[0];
+  double log_prior_n0 = dgamma(NumericVector::create(n0), 1, 1/1000, true)[0];
   return log_prior_a + log_prior_b + log_prior_n0;
 }
 
@@ -156,9 +145,9 @@ List ppa_mcmc(NumericMatrix data, double init_n0, double init_a, double init_b, 
   // Run MCMC
   for (int i = 0; i < n_iter; ++i) {
     // Propose new parameters
-    double new_a = R::rnorm(last_a, a_sd);
-    double new_b = R::rnorm(last_b, b_sd);
-    double new_n0 = R::rnorm(last_n0, n0_sd);
+    double new_a = rnorm(1,last_a, a_sd)[0];
+    double new_b = rnorm(1,last_b, b_sd)[0];
+    double new_n0 = rnorm(1,last_n0, n0_sd)[0];
     
     if (new_b < 0){
       a_trace[i] = last_a;
