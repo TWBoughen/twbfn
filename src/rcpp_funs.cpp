@@ -102,9 +102,10 @@ double llh_cpp(NumericMatrix data, double lambda, double a, double b, double n0,
 // [[Rcpp::export]]
 double joint_prior_cpp(double a, double b, double n0) {
   double log_prior_a = dnorm(NumericVector::create(a), 0, 10, true)[0];
-  double log_prior_b = dgamma(NumericVector::create(b), 1, 1/100, true)[0];
-  double log_prior_n0 = dgamma(NumericVector::create(n0), 1, 1/1000, true)[0];
-  return log_prior_a + log_prior_b + log_prior_n0;
+  double log_prior_b = dgamma(NumericVector::create(b), 1.0, 0.01, true)[0];
+  double log_prior_n0 = dgamma(NumericVector::create(n0), 1.0, 0.001, true)[0];
+  
+  return log_prior_n0 + log_prior_a + log_prior_b;
 }
 
 // joint_post_cpp: computes the joint posterior probability

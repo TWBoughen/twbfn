@@ -2,7 +2,7 @@
   
 useDynLib(twbfn, .registration = TRUE)
 import(Rcpp)
-export(ppa_mcmc)
+export(joint_prior_cpp)
 export(deg_count)
 export(deg_dist)
 export(deg_surv)
