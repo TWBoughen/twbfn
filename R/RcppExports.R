@@ -33,7 +33,7 @@ joint_post_cpp <- function(data, lambda, a, b, n0) {
     .Call(`_twbfn_joint_post_cpp`, data, lambda, a, b, n0)
 }
 
-ppa_mcmc <- function(data, init_n0, init_a, init_b, init_lambda, n_iter = 10000L, a_sd = 0.1, b_sd = 0.1, n0_sd = 1, adapt_interval = 1000L, target_accept_rate = 0.234, adapt_factor = 1.05) {
-    .Call(`_twbfn_ppa_mcmc`, data, init_n0, init_a, init_b, init_lambda, n_iter, a_sd, b_sd, n0_sd, adapt_interval, target_accept_rate, adapt_factor)
+ppa_mcmc <- function(data, init_n0, init_a, init_b, init_lambda, n_iter = 10000L, a_sd = 0.1, b_sd = 0.1, n0_sd = 1, adapt_interval = 1000L, target_accept_rate = 0.234, adapt_factor = 1.05, burn_in = 10000L) {
+    .Call(`_twbfn_ppa_mcmc`, data, init_n0, init_a, init_b, init_lambda, n_iter, a_sd, b_sd, n0_sd, adapt_interval, target_accept_rate, adapt_factor, burn_in)
 }
 

@@ -1,4 +1,10 @@
 #include <Rcpp.h>
+#include <gsl/gsl_errno.h>
+#include <gsl/gsl_math.h>
+#include <gsl/gsl_roots.h>
+
+
+
 using namespace Rcpp;
 
 // g_cpp function: computes the transformed value of x
@@ -101,9 +107,9 @@ double llh_cpp(NumericMatrix data, double lambda, double a, double b, double n0,
 // joint_prior_cpp: computes the joint prior probability
 // [[Rcpp::export]]
 double joint_prior_cpp(double a, double b, double n0) {
-  double log_prior_a = dnorm(NumericVector::create(a), 0, 10, true)[0];
-  double log_prior_b = dgamma(NumericVector::create(b), 1.0, 0.01, true)[0];
-  double log_prior_n0 = dgamma(NumericVector::create(n0), 1.0, 0.001, true)[0];
+  double log_prior_a = dnorm(NumericVector::create(a), 0, 10.0, true)[0];
+  double log_prior_b = dgamma(NumericVector::create(b), 1.0, 100.00, true)[0];
+  double log_prior_n0 = dgamma(NumericVector::create(n0), 1.0, 1000.00, true)[0];
   
   return log_prior_n0 + log_prior_a + log_prior_b;
 }
@@ -126,25 +132,29 @@ double joint_post_cpp(NumericMatrix data, double lambda, double a, double b, dou
 List ppa_mcmc(NumericMatrix data, double init_n0, double init_a, double init_b, double init_lambda, 
                     int n_iter = 10000, double a_sd = 0.1, double b_sd = 0.1, double n0_sd = 1, 
                     int adapt_interval = 1000, double target_accept_rate = 0.234, 
-                    double adapt_factor = 1.05) {
+                    double adapt_factor = 1.05, int burn_in=10000) {
   
   // Initialize traces and variables
-  NumericVector lambda_trace(n_iter);
-  NumericVector a_trace(n_iter);
-  NumericVector b_trace(n_iter);
-  NumericVector n0_trace(n_iter);
-  NumericVector post_trace(n_iter);
+  NumericVector lambda_trace(n_iter + burn_in);
+  NumericVector a_trace(n_iter + burn_in);
+  NumericVector b_trace(n_iter + burn_in);
+  NumericVector n0_trace(n_iter + burn_in);
+  NumericVector post_trace(n_iter + burn_in);
+  NumericVector a_sd_trace(n_iter + burn_in);
+  NumericVector b_sd_trace(n_iter + burn_in);
+  NumericVector n0_sd_trace(n_iter + burn_in);
   
   double last_a = init_a;
   double last_b = init_b;
   double last_n0 = init_n0;
   double last_lambda = init_lambda;
   double last_post = joint_post_cpp(data, last_lambda, last_a, last_b, last_n0);
+  double up_count =0;
   
   int accepted = 0;  // Track accepted proposals
   
   // Run MCMC
-  for (int i = 0; i < n_iter; ++i) {
+  for (int i = 0; i < (n_iter + burn_in); ++i) {
     // Propose new parameters
     double new_a = rnorm(1,last_a, a_sd)[0];
     double new_b = rnorm(1,last_b, b_sd)[0];
@@ -159,12 +169,19 @@ List ppa_mcmc(NumericMatrix data, double init_n0, double init_a, double init_b, 
     } // Skip iteration if b is negative
     
     // Find new lambda using the bisection method
+    
+    
     double new_lambda = find_lambda_cpp(new_n0, new_a, new_b, 0);
     
     // Compute new posterior
+    
+    
+    
     double new_post = joint_post_cpp(data, new_lambda, new_a, new_b, new_n0);
     
     // Accept/reject step
+    
+    
     double logA = new_post - last_post;
     if (std::log(R::runif(0, 1)) < logA) {
       // Accept the new state
@@ -176,37 +193,39 @@ List ppa_mcmc(NumericMatrix data, double init_n0, double init_a, double init_b, 
       accepted++;
     }
     
+    
     // Store current state
     a_trace[i] = last_a;
     b_trace[i] = last_b;
     n0_trace[i] = last_n0;
     lambda_trace[i] = last_lambda;
     post_trace[i] = last_post;
+    a_sd_trace[i] = a_sd;
+    b_sd_trace[i] = b_sd;
+    n0_sd_trace[i] = n0_sd;
+    
     
     // Output progress every 1000 iterations
     if ((i + 1) % adapt_interval == 0) {
-      Rcpp::Rcout << "Iteration " << i + 1 << "/" << n_iter << ": "
+      up_count++;
+      Rcpp::Rcout << "Iteration " << i + 1 << "/" << n_iter+burn_in << ": "<<std::endl
                   << "a = " << last_a << ", "
                   << "b = " << last_b << ", "
                   << "n0 = " << last_n0 << ", "
                   << "lambda = " << last_lambda << ", "
-                  << "posterior = " << last_post << std::endl;
+                  << "posterior = " << last_post << std::endl
+                  << "a_sd = "<< a_sd << ","
+                  << "b_sd = "<< b_sd << ","
+                  << "n0_sd = "<< n0_sd << std::endl;
       
       // Adaptive proposal variance based on acceptance rate
       double accept_rate = static_cast<double>(accepted) / adapt_interval;
       Rcpp::Rcout << "Acceptance rate = " << accept_rate << std::endl;
-      
-      // Adjust proposal variances if acceptance rate is too far from target
-      if (accept_rate < target_accept_rate) {
-        a_sd /= adapt_factor;  // Reduce variance to increase acceptance
-        b_sd /= adapt_factor;
-        n0_sd /= adapt_factor;
-      } else {
-        a_sd *= adapt_factor;  // Increase variance to decrease acceptance
-        b_sd *= adapt_factor;
-        n0_sd *= adapt_factor;
-      }
-      
+    if (i>(burn_in + adapt_interval)){
+      a_sd = 2.38*sqrt(var(Rcpp::unique(a_trace[Rcpp::Range(0,up_count*adapt_interval)]))/3) + 0.1/sqrt(3);
+      b_sd = 2.38*sqrt(var(Rcpp::unique(b_trace[Rcpp::Range(0,up_count*adapt_interval)]))/3) + 0.1/sqrt(3);
+      n0_sd = 2.38*sqrt(var(Rcpp::unique(n0_trace[Rcpp::Range(0,up_count*adapt_interval)]))/3) + 0.1/sqrt(3);
+    }
       // Reset acceptance count after each adaptation interval
       accepted = 0;
     }
@@ -219,7 +238,10 @@ List ppa_mcmc(NumericMatrix data, double init_n0, double init_a, double init_b, 
                       Named("post_trace") = post_trace,
                       Named("a_sd_final") = a_sd,
                       Named("b_sd_final") = b_sd,
-                      Named("n0_sd_final") = n0_sd);
+                      Named("n0_sd_final") = n0_sd,
+                      Named("a_sd") = a_sd_trace,
+                      Named("b_sd") = b_sd_trace,
+                      Named("n0_sd") = n0_sd_trace);
 }
 
 

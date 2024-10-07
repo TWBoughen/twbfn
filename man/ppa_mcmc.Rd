@@ -16,7 +16,8 @@ ppa_mcmc(
   n0_sd = 1,
   adapt_interval = 1000,
   target_accept_rate = 0.234,
-  adapt_factor = 1.05
+  adapt_factor = 1.05,
+  burn_in = 10000
 )
 }
 \arguments{

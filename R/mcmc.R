@@ -27,11 +27,27 @@
 ppa_mcmc <- function(data, init_n0, init_a, init_b, init_lambda, 
                      n_iter = 10000, a_sd = 0.1, b_sd = 0.1, n0_sd = 1, 
                      adapt_interval = 1000, target_accept_rate = 0.234, 
-                     adapt_factor = 1.05) {
+                     adapt_factor = 1.05, burn_in=10000) {
   
   # Call the C++ function using .Call()
   result <- .Call('_twbfn_ppa_mcmc', data, init_n0, init_a, init_b, init_lambda, 
-                  n_iter, a_sd, b_sd, n0_sd, adapt_interval, target_accept_rate, adapt_factor)
+                  n_iter, a_sd, b_sd, n0_sd, adapt_interval, target_accept_rate, adapt_factor, burn_in)
   
   return(result)
 }
+
+
+#' @export
+ppa_mle = function(dat){
+  return(optim(c(10,1,1),fn=ppa_llh,dat=dat))
+}
+#' @export
+ppa_llh = function(pars, dat){
+  lambda = find_lambda_cpp(pars[1], pars[2], pars[3], 0)
+  return(-llh_cpp(dat, lambda, pars[2], pars[3], pars[1]))
+}
+
+
+
+
+
