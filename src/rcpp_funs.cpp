@@ -146,9 +146,9 @@ List ppa_mcmc(NumericMatrix data, double init_n0, double init_a, double init_b, 
   // Run MCMC
   for (int i = 0; i < n_iter; ++i) {
     // Propose new parameters
-    double new_a = rnorm(last_a, a_sd)[0];
-    double new_b = rnorm(last_b, b_sd)[0];
-    double new_n0 = rnorm(last_n0, n0_sd)[0];
+    double new_a = rnorm(1,last_a, a_sd)[0];
+    double new_b = rnorm(1,last_b, b_sd)[0];
+    double new_n0 = rnorm(1,last_n0, n0_sd)[0];
     
     if (new_b < 0){
       a_trace[i] = last_a;
