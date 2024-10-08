@@ -37,16 +37,6 @@ ppa_mcmc <- function(data, init_n0, init_a, init_b, init_lambda,
 }
 
 
-#' @export
-ppa_mle <- function(dat){
-  return(optim(c(10,1,1),fn=ppa_llh,dat=dat))
-}
-#' @export
-ppa_llh <- function(pars, dat){
-  lambda = find_lambda_cpp(pars[1], pars[2], pars[3], 0)
-  return(-llh_cpp(dat, lambda, pars[2], pars[3], pars[1]))
-}
-
 
 
 

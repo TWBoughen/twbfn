@@ -54,3 +54,18 @@ pppa = Vectorize(function(x, n0,a,b,eps,lambda,log=T){
   }, vectorize.args = 'x')
   return(-sum(log(1+lambda/g(1:x,n0,a,b,eps))))
 }, vectorize.args = 'x')
+
+#'mle method for ppa model
+#'
+#' @export
+ppa_mle <- function(dat){
+  return(optim(c(10,1,1),fn=ppa_llh,dat=dat))
+}
+#'LL for ppa model
+#'
+#' @export
+ppa_llh <- function(pars, dat){
+  lambda = find_lambda_cpp(pars[1], pars[2], pars[3], 0)
+  return(-llh_cpp(dat, lambda, pars[2], pars[3], pars[1]))
+}
+

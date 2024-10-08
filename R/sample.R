@@ -79,8 +79,9 @@ sample_ppa_rnd = function(N,a,b,n0,smplr,..., init_size = 25, quiet=T){
   
 }
 
+#'Preference function for PPA model
+#'
 #' @export
-#' 
 ppa_pref = function(x, a, b, n0, eps=0){
   res<-.Call('_twbfn_g_cpp', x, n0, a, b, eps)
   return(res)
