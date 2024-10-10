@@ -15,8 +15,6 @@ ppa_mcmc(
   b_sd = 0.1,
   n0_sd = 1,
   adapt_interval = 1000,
-  target_accept_rate = 0.234,
-  adapt_factor = 1.05,
   burn_in = 10000
 )
 }
@@ -32,7 +30,7 @@ counts of those degrees.}
 
 \item{init_lambda}{Initial value for the parameter \code{lambda}.}
 
-\item{n_iter}{Number of iterations (default is 10000).}
+\item{n_iter}{Number of iterations (default is 10000).s}
 
 \item{a_sd}{Initial standard deviation for \code{a} proposals (default is 0.1).}
 
@@ -42,9 +40,7 @@ counts of those degrees.}
 
 \item{adapt_interval}{Interval for adapting the proposal variance (default is 1000).}
 
-\item{target_accept_rate}{Target acceptance rate for the adaptive MCMC (default is 0.234).}
-
-\item{adapt_factor}{Adaptation factor for the proposal variance (default is 1.05).}
+\item{burn_in}{Period where MCMC is not adaptive.}
 }
 \value{
 A list containing the results.
@@ -54,7 +50,8 @@ This function attempts to estimate the parameters of the preferential attachment
 from the sequence of degrees of a network given that it was generated using the model
 from Rudas.
 }
-\details{
-The model is somewhat adaptive in that the proposal variance is increased for all parameters
-if the acceptance rate is higher than the target acceptance rate, and decreases when it is below.
+\seealso{
+Other model fitting functions: 
+\code{\link{ppa_mle}()}
 }
+\concept{model fitting functions}

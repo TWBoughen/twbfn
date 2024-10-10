@@ -22,3 +22,8 @@ pppa(x, n0, a, b, eps, lambda, log = T)
 \description{
 Returns log of survival
 }
+\seealso{
+Other distribution functions: 
+\code{\link{dppa}()}
+}
+\concept{distribution functions}

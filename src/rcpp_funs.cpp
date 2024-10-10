@@ -133,8 +133,7 @@ double joint_post_cpp(NumericMatrix data, double lambda, double a, double b, dou
 // [[Rcpp::export]]
 List ppa_mcmc(NumericMatrix data, double init_n0, double init_a, double init_b, double init_lambda, 
                     int n_iter = 10000, double a_sd = 0.1, double b_sd = 0.1, double n0_sd = 1, 
-                    int adapt_interval = 1000, double target_accept_rate = 0.234, 
-                    double adapt_factor = 1.05, int burn_in=10000) {
+                    int adapt_interval = 1000, int burn_in=10000) {
   
   // Initialize traces and variables
   NumericVector lambda_trace(n_iter + burn_in);

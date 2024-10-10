@@ -2,10 +2,18 @@
 % Please edit documentation in R/dists.R
 \name{ppa_mle}
 \alias{ppa_mle}
-\title{mle method for ppa model}
+\title{MLE method for PPA model}
 \usage{
 ppa_mle(dat)
 }
-\description{
-mle method for ppa model
+\arguments{
+\item{dat}{A matrix with two columns of degrees and their counts}
 }
+\description{
+This function will obtain the MLE of the parameters in the PPA model for a given data set.
+}
+\seealso{
+Other model fitting functions: 
+\code{\link{ppa_mcmc}()}
+}
+\concept{model fitting functions}

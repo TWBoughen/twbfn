@@ -9,6 +9,8 @@
 #' @param eps Value of eps in PA function
 #' @param lambda Value of lambda usually found using find_lambda
 #' 
+#' @family distribution functions
+#' 
 #' @export
 dppa = Vectorize(function(x, n0,a,b,eps,lambda,log=T){
   g = Vectorize(function(x,n0=1,a=1,b=1,eps=0){
@@ -41,6 +43,8 @@ dppa = Vectorize(function(x, n0,a,b,eps,lambda,log=T){
 #' @param eps Value of eps in PA function
 #' @param lambda Value of lambda usually found using find_lambda
 #' 
+#' @family distribution functions
+#' 
 #' @export
 pppa = Vectorize(function(x, n0,a,b,eps,lambda,log=T){
   g = Vectorize(function(x,n0=1,a=1,b=1,eps=0){
@@ -55,7 +59,13 @@ pppa = Vectorize(function(x, n0,a,b,eps,lambda,log=T){
   return(-sum(log(1+lambda/g(1:x,n0,a,b,eps))))
 }, vectorize.args = 'x')
 
-#'mle method for ppa model
+#' MLE method for PPA model
+#' 
+#' This function will obtain the MLE of the parameters in the PPA model for a given data set.
+#' 
+#' @param dat A matrix with two columns of degrees and their counts
+#' 
+#' @family model fitting functions
 #'
 #' @export
 ppa_mle <- function(dat){

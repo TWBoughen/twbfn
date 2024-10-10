@@ -133,8 +133,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // ppa_mcmc
-List ppa_mcmc(NumericMatrix data, double init_n0, double init_a, double init_b, double init_lambda, int n_iter, double a_sd, double b_sd, double n0_sd, int adapt_interval, double target_accept_rate, double adapt_factor, int burn_in);
-RcppExport SEXP _twbfn_ppa_mcmc(SEXP dataSEXP, SEXP init_n0SEXP, SEXP init_aSEXP, SEXP init_bSEXP, SEXP init_lambdaSEXP, SEXP n_iterSEXP, SEXP a_sdSEXP, SEXP b_sdSEXP, SEXP n0_sdSEXP, SEXP adapt_intervalSEXP, SEXP target_accept_rateSEXP, SEXP adapt_factorSEXP, SEXP burn_inSEXP) {
+List ppa_mcmc(NumericMatrix data, double init_n0, double init_a, double init_b, double init_lambda, int n_iter, double a_sd, double b_sd, double n0_sd, int adapt_interval, int burn_in);
+RcppExport SEXP _twbfn_ppa_mcmc(SEXP dataSEXP, SEXP init_n0SEXP, SEXP init_aSEXP, SEXP init_bSEXP, SEXP init_lambdaSEXP, SEXP n_iterSEXP, SEXP a_sdSEXP, SEXP b_sdSEXP, SEXP n0_sdSEXP, SEXP adapt_intervalSEXP, SEXP burn_inSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -148,10 +148,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type b_sd(b_sdSEXP);
     Rcpp::traits::input_parameter< double >::type n0_sd(n0_sdSEXP);
     Rcpp::traits::input_parameter< int >::type adapt_interval(adapt_intervalSEXP);
-    Rcpp::traits::input_parameter< double >::type target_accept_rate(target_accept_rateSEXP);
-    Rcpp::traits::input_parameter< double >::type adapt_factor(adapt_factorSEXP);
     Rcpp::traits::input_parameter< int >::type burn_in(burn_inSEXP);
-    rcpp_result_gen = Rcpp::wrap(ppa_mcmc(data, init_n0, init_a, init_b, init_lambda, n_iter, a_sd, b_sd, n0_sd, adapt_interval, target_accept_rate, adapt_factor, burn_in));
+    rcpp_result_gen = Rcpp::wrap(ppa_mcmc(data, init_n0, init_a, init_b, init_lambda, n_iter, a_sd, b_sd, n0_sd, adapt_interval, burn_in));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -165,7 +163,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_twbfn_llh_cpp", (DL_FUNC) &_twbfn_llh_cpp, 6},
     {"_twbfn_joint_prior_cpp", (DL_FUNC) &_twbfn_joint_prior_cpp, 3},
     {"_twbfn_joint_post_cpp", (DL_FUNC) &_twbfn_joint_post_cpp, 5},
-    {"_twbfn_ppa_mcmc", (DL_FUNC) &_twbfn_ppa_mcmc, 13},
+    {"_twbfn_ppa_mcmc", (DL_FUNC) &_twbfn_ppa_mcmc, 11},
     {NULL, NULL, 0}
 };
 
