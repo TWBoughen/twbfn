@@ -242,7 +242,9 @@ List ppa_mcmc(NumericMatrix data, double init_n0, double init_a, double init_b, 
                       Named("n0_sd_final") = n0_sd,
                       Named("a_sd") = a_sd_trace,
                       Named("b_sd") = b_sd_trace,
-                      Named("n0_sd") = n0_sd_trace);
+                      Named("n0_sd") = n0_sd_trace,
+                      Named("data") = data);
+                      
 }
 
 
