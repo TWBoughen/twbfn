@@ -7,7 +7,7 @@ Author: Thomas W Boughen
 Maintainer: Thomas W Boughen <t.w.boughen1@newcastle.ac.uk>
 Description: This R package has been made in order to collect the functions that I have been using for sampling from certain network models and investigating their properties.
 License: GPL (>= 2)
-Imports: Rcpp (>= 1.0.13),wdnet (>= 1.2.3),parallel (>=4.4.0),ggplot2(>=3.5.1)
+Imports: Rcpp (>= 1.0.13),wdnet (>= 1.2.3),parallel (>= 4.4.0),ggplot2 (>= 3.5.1)
 LinkingTo: Rcpp
 RoxygenNote: 7.3.2
 Encoding: UTF-8
