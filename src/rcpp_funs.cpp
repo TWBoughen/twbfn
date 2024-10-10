@@ -100,7 +100,7 @@ double llh_cpp(NumericMatrix data, double lambda, double a, double b, double n0,
     int count = data(i, 1);
     llh += count * dgpa_cpp(x, n0, a, b, eps, lambda, true);
   }
-  if(n0>data(n,0)){
+  if(n0>data(n-1,0)){
     return -INFINITY;
   }
   return llh;
