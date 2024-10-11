@@ -69,7 +69,7 @@ pppa = Vectorize(function(x, n0,a,b,eps,lambda,log=T){
 #'
 #' @export
 ppa_mle <- function(dat){
-  return(optim(c(10,1,1),fn=ppa_llh,dat=dat))
+  return(optim(c(median(dat[,1]),1,1),fn=ppa_llh,dat=dat))
 }
 #'LL for ppa model
 #'
