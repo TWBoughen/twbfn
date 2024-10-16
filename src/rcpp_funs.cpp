@@ -42,7 +42,7 @@ double find_lambda_root(double n0, double a, double b, double eps, double l) {
 // [[Rcpp::export]]
 double find_lambda_cpp(double n0, double a, double b, double eps) {
   double lower = 0;  // lower bound for lambda
-  double upper = 10; // upper bound for lambda
+  double upper = 100; // upper bound for lambda
   double tol = 1e-7; // tolerance level for convergence
   int max_iter = 100; // maximum iterations
   double mid;
@@ -232,11 +232,11 @@ List ppa_mcmc(NumericMatrix data, double init_n0, double init_a, double init_b, 
     }
   }
   
-  return List::create(Named("a_trace") = a_trace,
-                      Named("b_trace") = b_trace,
-                      Named("n0_trace") = n0_trace,
-                      Named("lambda_trace") = lambda_trace,
-                      Named("post_trace") = post_trace,
+  return List::create(Named("a") = a_trace,
+                      Named("b") = b_trace,
+                      Named("n0") = n0_trace,
+                      Named("lambda") = lambda_trace,
+                      Named("post") = post_trace,
                       Named("a_sd_final") = a_sd,
                       Named("b_sd_final") = b_sd,
                       Named("n0_sd_final") = n0_sd,
