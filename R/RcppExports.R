@@ -77,14 +77,6 @@ gg_rho <- function(w, sigma, beta) {
     .Call('_twbfn_gg_rho', PACKAGE = 'twbfn', w, sigma, beta)
 }
 
-rho0 <- function(w, sigma, c, eta) {
-    .Call('_twbfn_rho0', PACKAGE = 'twbfn', w, sigma, c, eta)
-}
-
-rho1 <- function(w, sigma, tau, c, eta) {
-    .Call('_twbfn_rho1', PACKAGE = 'twbfn', w, sigma, tau, c, eta)
-}
-
 rho0hat <- function(w, sigma, c, eta) {
     .Call('_twbfn_rho0hat', PACKAGE = 'twbfn', w, sigma, c, eta)
 }

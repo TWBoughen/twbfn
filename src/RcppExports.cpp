@@ -287,35 +287,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rho0
-double rho0(double w, double sigma, double c, double eta);
-RcppExport SEXP _twbfn_rho0(SEXP wSEXP, SEXP sigmaSEXP, SEXP cSEXP, SEXP etaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type w(wSEXP);
-    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
-    Rcpp::traits::input_parameter< double >::type c(cSEXP);
-    Rcpp::traits::input_parameter< double >::type eta(etaSEXP);
-    rcpp_result_gen = Rcpp::wrap(rho0(w, sigma, c, eta));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rho1
-double rho1(double w, double sigma, double tau, double c, double eta);
-RcppExport SEXP _twbfn_rho1(SEXP wSEXP, SEXP sigmaSEXP, SEXP tauSEXP, SEXP cSEXP, SEXP etaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type w(wSEXP);
-    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
-    Rcpp::traits::input_parameter< double >::type tau(tauSEXP);
-    Rcpp::traits::input_parameter< double >::type c(cSEXP);
-    Rcpp::traits::input_parameter< double >::type eta(etaSEXP);
-    rcpp_result_gen = Rcpp::wrap(rho1(w, sigma, tau, c, eta));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rho0hat
 double rho0hat(double w, double sigma, double c, double eta);
 RcppExport SEXP _twbfn_rho0hat(SEXP wSEXP, SEXP sigmaSEXP, SEXP cSEXP, SEXP etaSEXP) {
@@ -379,8 +350,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_twbfn_dggp_tail", (DL_FUNC) &_twbfn_dggp_tail, 5},
     {"_twbfn_gg_tail", (DL_FUNC) &_twbfn_gg_tail, 3},
     {"_twbfn_gg_rho", (DL_FUNC) &_twbfn_gg_rho, 3},
-    {"_twbfn_rho0", (DL_FUNC) &_twbfn_rho0, 4},
-    {"_twbfn_rho1", (DL_FUNC) &_twbfn_rho1, 5},
     {"_twbfn_rho0hat", (DL_FUNC) &_twbfn_rho0hat, 4},
     {"_twbfn_rho1hat", (DL_FUNC) &_twbfn_rho1hat, 5},
     {"_twbfn_sample_edges", (DL_FUNC) &_twbfn_sample_edges, 3},
