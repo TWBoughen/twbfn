@@ -1,3 +1,5 @@
+
+
 #' Get degree counts
 #' Returns the degree counts from a degree sequence
 #'

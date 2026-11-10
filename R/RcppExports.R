@@ -2,90 +2,90 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 g_cpp <- function(x, n0 = 1, a = 1, b = 1, eps = 0) {
-    .Call('_twbfn_g_cpp', PACKAGE = 'twbfn', x, n0, a, b, eps)
+    .Call(`_twbfn_g_cpp`, x, n0, a, b, eps)
 }
 
 lambda_obj_cpp <- function(l, n0, a, b, eps, mx = 1000L) {
-    .Call('_twbfn_lambda_obj_cpp', PACKAGE = 'twbfn', l, n0, a, b, eps, mx)
+    .Call(`_twbfn_lambda_obj_cpp`, l, n0, a, b, eps, mx)
 }
 
 lambda_obj_adj_cpp <- function(l, n0, a, b, eps, mx = 1000L) {
-    .Call('_twbfn_lambda_obj_adj_cpp', PACKAGE = 'twbfn', l, n0, a, b, eps, mx)
+    .Call(`_twbfn_lambda_obj_adj_cpp`, l, n0, a, b, eps, mx)
 }
 
 find_lambda_cpp <- function(n0, a, b, eps) {
-    .Call('_twbfn_find_lambda_cpp', PACKAGE = 'twbfn', n0, a, b, eps)
+    .Call(`_twbfn_find_lambda_cpp`, n0, a, b, eps)
 }
 
 dgpa_cpp <- function(x, n0, a, b, eps, lambda, logd = TRUE) {
-    .Call('_twbfn_dgpa_cpp', PACKAGE = 'twbfn', x, n0, a, b, eps, lambda, logd)
+    .Call(`_twbfn_dgpa_cpp`, x, n0, a, b, eps, lambda, logd)
 }
 
 llh_cpp <- function(data, lambda, a, b, n0, eps = 0) {
-    .Call('_twbfn_llh_cpp', PACKAGE = 'twbfn', data, lambda, a, b, n0, eps)
+    .Call(`_twbfn_llh_cpp`, data, lambda, a, b, n0, eps)
 }
 
 joint_prior_cpp <- function(a, b, n0) {
-    .Call('_twbfn_joint_prior_cpp', PACKAGE = 'twbfn', a, b, n0)
+    .Call(`_twbfn_joint_prior_cpp`, a, b, n0)
 }
 
 joint_post_cpp <- function(data, lambda, a, b, n0) {
-    .Call('_twbfn_joint_post_cpp', PACKAGE = 'twbfn', data, lambda, a, b, n0)
+    .Call(`_twbfn_joint_post_cpp`, data, lambda, a, b, n0)
 }
 
 ppa_mcmc <- function(data, init_n0, init_a, init_b, init_lambda, n_iter = 10000L, a_sd = 0.1, b_sd = 0.1, n0_sd = 1, adapt_interval = 1000L, burn_in = 10000L) {
-    .Call('_twbfn_ppa_mcmc', PACKAGE = 'twbfn', data, init_n0, init_a, init_b, init_lambda, n_iter, a_sd, b_sd, n0_sd, adapt_interval, burn_in)
+    .Call(`_twbfn_ppa_mcmc`, data, init_n0, init_a, init_b, init_lambda, n_iter, a_sd, b_sd, n0_sd, adapt_interval, burn_in)
 }
 
 tgamma_upper <- function(a, z) {
-    .Call('_twbfn_tgamma_upper', PACKAGE = 'twbfn', a, z)
+    .Call(`_twbfn_tgamma_upper`, a, z)
 }
 
 ggp_tail <- function(x, sigma, tau, beta) {
-    .Call('_twbfn_ggp_tail', PACKAGE = 'twbfn', x, sigma, tau, beta)
+    .Call(`_twbfn_ggp_tail`, x, sigma, tau, beta)
 }
 
 ggp_tail_invgrad <- function(x, sigma, tau, beta) {
-    .Call('_twbfn_ggp_tail_invgrad', PACKAGE = 'twbfn', x, sigma, tau, beta)
+    .Call(`_twbfn_ggp_tail_invgrad`, x, sigma, tau, beta)
 }
 
 ggp_rho <- function(x, sigma, tau, beta) {
-    .Call('_twbfn_ggp_rho', PACKAGE = 'twbfn', x, sigma, tau, beta)
+    .Call(`_twbfn_ggp_rho`, x, sigma, tau, beta)
 }
 
 stable_rho <- function(x, sigma) {
-    .Call('_twbfn_stable_rho', PACKAGE = 'twbfn', x, sigma)
+    .Call(`_twbfn_stable_rho`, x, sigma)
 }
 
 stable_tail <- function(x, sigma) {
-    .Call('_twbfn_stable_tail', PACKAGE = 'twbfn', x, sigma)
+    .Call(`_twbfn_stable_tail`, x, sigma)
 }
 
 dggp_rho <- function(x, sigma, tau, beta, p) {
-    .Call('_twbfn_dggp_rho', PACKAGE = 'twbfn', x, sigma, tau, beta, p)
+    .Call(`_twbfn_dggp_rho`, x, sigma, tau, beta, p)
 }
 
 dggp_tail <- function(x, sigma, tau, beta, p) {
-    .Call('_twbfn_dggp_tail', PACKAGE = 'twbfn', x, sigma, tau, beta, p)
+    .Call(`_twbfn_dggp_tail`, x, sigma, tau, beta, p)
 }
 
 gg_tail <- function(x, sigma, beta) {
-    .Call('_twbfn_gg_tail', PACKAGE = 'twbfn', x, sigma, beta)
+    .Call(`_twbfn_gg_tail`, x, sigma, beta)
 }
 
 gg_rho <- function(w, sigma, beta) {
-    .Call('_twbfn_gg_rho', PACKAGE = 'twbfn', w, sigma, beta)
+    .Call(`_twbfn_gg_rho`, w, sigma, beta)
 }
 
 rho0hat <- function(w, sigma, c, eta) {
-    .Call('_twbfn_rho0hat', PACKAGE = 'twbfn', w, sigma, c, eta)
+    .Call(`_twbfn_rho0hat`, w, sigma, c, eta)
 }
 
 rho1hat <- function(w, sigma, tau, c, eta) {
-    .Call('_twbfn_rho1hat', PACKAGE = 'twbfn', w, sigma, tau, c, eta)
+    .Call(`_twbfn_rho1hat`, w, sigma, tau, c, eta)
 }
 
 sample_edges <- function(ws, scaling, quiet = TRUE) {
-    .Call('_twbfn_sample_edges', PACKAGE = 'twbfn', ws, scaling, quiet)
+    .Call(`_twbfn_sample_edges`, ws, scaling, quiet)
 }
 

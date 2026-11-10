@@ -1,3 +1,8 @@
+
+#' @useDynLib twbfn, .registration = TRUE
+#' @importFrom Rcpp evalCpp
+
+
 counts_to_surv = function(df){
   return(
     twbfn::deg_surv(rep(df[,1], df[,2]))

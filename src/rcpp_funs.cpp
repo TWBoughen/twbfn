@@ -262,6 +262,7 @@ double tgamma_upper(double a, double z){
 }
 
 
+// ggp_tail: computes tail of generalised gamma pareto process
 // [[Rcpp::export]]
 double ggp_tail(double x, double sigma, double tau,double beta){
   double mult = pow(beta,sigma*tau) / (sigma*tau*boost::math::tgamma(1-sigma));
