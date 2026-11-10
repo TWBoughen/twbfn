@@ -37,3 +37,63 @@ ppa_mcmc <- function(data, init_n0, init_a, init_b, init_lambda, n_iter = 10000L
     .Call('_twbfn_ppa_mcmc', PACKAGE = 'twbfn', data, init_n0, init_a, init_b, init_lambda, n_iter, a_sd, b_sd, n0_sd, adapt_interval, burn_in)
 }
 
+tgamma_upper <- function(a, z) {
+    .Call('_twbfn_tgamma_upper', PACKAGE = 'twbfn', a, z)
+}
+
+ggp_tail <- function(x, sigma, tau, beta) {
+    .Call('_twbfn_ggp_tail', PACKAGE = 'twbfn', x, sigma, tau, beta)
+}
+
+ggp_tail_invgrad <- function(x, sigma, tau, beta) {
+    .Call('_twbfn_ggp_tail_invgrad', PACKAGE = 'twbfn', x, sigma, tau, beta)
+}
+
+ggp_rho <- function(x, sigma, tau, beta) {
+    .Call('_twbfn_ggp_rho', PACKAGE = 'twbfn', x, sigma, tau, beta)
+}
+
+stable_rho <- function(x, sigma) {
+    .Call('_twbfn_stable_rho', PACKAGE = 'twbfn', x, sigma)
+}
+
+stable_tail <- function(x, sigma) {
+    .Call('_twbfn_stable_tail', PACKAGE = 'twbfn', x, sigma)
+}
+
+dggp_rho <- function(x, sigma, tau, beta, p) {
+    .Call('_twbfn_dggp_rho', PACKAGE = 'twbfn', x, sigma, tau, beta, p)
+}
+
+dggp_tail <- function(x, sigma, tau, beta, p) {
+    .Call('_twbfn_dggp_tail', PACKAGE = 'twbfn', x, sigma, tau, beta, p)
+}
+
+gg_tail <- function(x, sigma, beta) {
+    .Call('_twbfn_gg_tail', PACKAGE = 'twbfn', x, sigma, beta)
+}
+
+gg_rho <- function(w, sigma, beta) {
+    .Call('_twbfn_gg_rho', PACKAGE = 'twbfn', w, sigma, beta)
+}
+
+rho0 <- function(w, sigma, c, eta) {
+    .Call('_twbfn_rho0', PACKAGE = 'twbfn', w, sigma, c, eta)
+}
+
+rho1 <- function(w, sigma, tau, c, eta) {
+    .Call('_twbfn_rho1', PACKAGE = 'twbfn', w, sigma, tau, c, eta)
+}
+
+rho0hat <- function(w, sigma, c, eta) {
+    .Call('_twbfn_rho0hat', PACKAGE = 'twbfn', w, sigma, c, eta)
+}
+
+rho1hat <- function(w, sigma, tau, c, eta) {
+    .Call('_twbfn_rho1hat', PACKAGE = 'twbfn', w, sigma, tau, c, eta)
+}
+
+sample_edges <- function(ws, scaling, quiet = TRUE) {
+    .Call('_twbfn_sample_edges', PACKAGE = 'twbfn', ws, scaling, quiet)
+}
+

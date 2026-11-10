@@ -23,7 +23,7 @@ dppa(x, n0, a, b, eps, lambda, log = T)
 Returns log of PMF
 }
 \seealso{
-Other distribution functions: 
-\code{\link{pppa}()}
+Other distribution functions:
+\code{\link[=pppa]{pppa()}}
 }
 \concept{distribution functions}

@@ -153,6 +153,211 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// tgamma_upper
+double tgamma_upper(double a, double z);
+RcppExport SEXP _twbfn_tgamma_upper(SEXP aSEXP, SEXP zSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type a(aSEXP);
+    Rcpp::traits::input_parameter< double >::type z(zSEXP);
+    rcpp_result_gen = Rcpp::wrap(tgamma_upper(a, z));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ggp_tail
+double ggp_tail(double x, double sigma, double tau, double beta);
+RcppExport SEXP _twbfn_ggp_tail(SEXP xSEXP, SEXP sigmaSEXP, SEXP tauSEXP, SEXP betaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< double >::type tau(tauSEXP);
+    Rcpp::traits::input_parameter< double >::type beta(betaSEXP);
+    rcpp_result_gen = Rcpp::wrap(ggp_tail(x, sigma, tau, beta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ggp_tail_invgrad
+double ggp_tail_invgrad(double x, double sigma, double tau, double beta);
+RcppExport SEXP _twbfn_ggp_tail_invgrad(SEXP xSEXP, SEXP sigmaSEXP, SEXP tauSEXP, SEXP betaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< double >::type tau(tauSEXP);
+    Rcpp::traits::input_parameter< double >::type beta(betaSEXP);
+    rcpp_result_gen = Rcpp::wrap(ggp_tail_invgrad(x, sigma, tau, beta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ggp_rho
+double ggp_rho(double x, double sigma, double tau, double beta);
+RcppExport SEXP _twbfn_ggp_rho(SEXP xSEXP, SEXP sigmaSEXP, SEXP tauSEXP, SEXP betaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< double >::type tau(tauSEXP);
+    Rcpp::traits::input_parameter< double >::type beta(betaSEXP);
+    rcpp_result_gen = Rcpp::wrap(ggp_rho(x, sigma, tau, beta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// stable_rho
+double stable_rho(double x, double sigma);
+RcppExport SEXP _twbfn_stable_rho(SEXP xSEXP, SEXP sigmaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    rcpp_result_gen = Rcpp::wrap(stable_rho(x, sigma));
+    return rcpp_result_gen;
+END_RCPP
+}
+// stable_tail
+double stable_tail(double x, double sigma);
+RcppExport SEXP _twbfn_stable_tail(SEXP xSEXP, SEXP sigmaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    rcpp_result_gen = Rcpp::wrap(stable_tail(x, sigma));
+    return rcpp_result_gen;
+END_RCPP
+}
+// dggp_rho
+double dggp_rho(double x, double sigma, double tau, double beta, double p);
+RcppExport SEXP _twbfn_dggp_rho(SEXP xSEXP, SEXP sigmaSEXP, SEXP tauSEXP, SEXP betaSEXP, SEXP pSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< double >::type tau(tauSEXP);
+    Rcpp::traits::input_parameter< double >::type beta(betaSEXP);
+    Rcpp::traits::input_parameter< double >::type p(pSEXP);
+    rcpp_result_gen = Rcpp::wrap(dggp_rho(x, sigma, tau, beta, p));
+    return rcpp_result_gen;
+END_RCPP
+}
+// dggp_tail
+double dggp_tail(double x, double sigma, double tau, double beta, double p);
+RcppExport SEXP _twbfn_dggp_tail(SEXP xSEXP, SEXP sigmaSEXP, SEXP tauSEXP, SEXP betaSEXP, SEXP pSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< double >::type tau(tauSEXP);
+    Rcpp::traits::input_parameter< double >::type beta(betaSEXP);
+    Rcpp::traits::input_parameter< double >::type p(pSEXP);
+    rcpp_result_gen = Rcpp::wrap(dggp_tail(x, sigma, tau, beta, p));
+    return rcpp_result_gen;
+END_RCPP
+}
+// gg_tail
+double gg_tail(double x, double sigma, double beta);
+RcppExport SEXP _twbfn_gg_tail(SEXP xSEXP, SEXP sigmaSEXP, SEXP betaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< double >::type beta(betaSEXP);
+    rcpp_result_gen = Rcpp::wrap(gg_tail(x, sigma, beta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// gg_rho
+double gg_rho(double w, double sigma, double beta);
+RcppExport SEXP _twbfn_gg_rho(SEXP wSEXP, SEXP sigmaSEXP, SEXP betaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type w(wSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< double >::type beta(betaSEXP);
+    rcpp_result_gen = Rcpp::wrap(gg_rho(w, sigma, beta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rho0
+double rho0(double w, double sigma, double c, double eta);
+RcppExport SEXP _twbfn_rho0(SEXP wSEXP, SEXP sigmaSEXP, SEXP cSEXP, SEXP etaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type w(wSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< double >::type c(cSEXP);
+    Rcpp::traits::input_parameter< double >::type eta(etaSEXP);
+    rcpp_result_gen = Rcpp::wrap(rho0(w, sigma, c, eta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rho1
+double rho1(double w, double sigma, double tau, double c, double eta);
+RcppExport SEXP _twbfn_rho1(SEXP wSEXP, SEXP sigmaSEXP, SEXP tauSEXP, SEXP cSEXP, SEXP etaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type w(wSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< double >::type tau(tauSEXP);
+    Rcpp::traits::input_parameter< double >::type c(cSEXP);
+    Rcpp::traits::input_parameter< double >::type eta(etaSEXP);
+    rcpp_result_gen = Rcpp::wrap(rho1(w, sigma, tau, c, eta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rho0hat
+double rho0hat(double w, double sigma, double c, double eta);
+RcppExport SEXP _twbfn_rho0hat(SEXP wSEXP, SEXP sigmaSEXP, SEXP cSEXP, SEXP etaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type w(wSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< double >::type c(cSEXP);
+    Rcpp::traits::input_parameter< double >::type eta(etaSEXP);
+    rcpp_result_gen = Rcpp::wrap(rho0hat(w, sigma, c, eta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rho1hat
+double rho1hat(double w, double sigma, double tau, double c, double eta);
+RcppExport SEXP _twbfn_rho1hat(SEXP wSEXP, SEXP sigmaSEXP, SEXP tauSEXP, SEXP cSEXP, SEXP etaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type w(wSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< double >::type tau(tauSEXP);
+    Rcpp::traits::input_parameter< double >::type c(cSEXP);
+    Rcpp::traits::input_parameter< double >::type eta(etaSEXP);
+    rcpp_result_gen = Rcpp::wrap(rho1hat(w, sigma, tau, c, eta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// sample_edges
+NumericMatrix sample_edges(NumericVector ws, double scaling, bool quiet);
+RcppExport SEXP _twbfn_sample_edges(SEXP wsSEXP, SEXP scalingSEXP, SEXP quietSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type ws(wsSEXP);
+    Rcpp::traits::input_parameter< double >::type scaling(scalingSEXP);
+    Rcpp::traits::input_parameter< bool >::type quiet(quietSEXP);
+    rcpp_result_gen = Rcpp::wrap(sample_edges(ws, scaling, quiet));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_twbfn_g_cpp", (DL_FUNC) &_twbfn_g_cpp, 5},
@@ -164,6 +369,21 @@ static const R_CallMethodDef CallEntries[] = {
     {"_twbfn_joint_prior_cpp", (DL_FUNC) &_twbfn_joint_prior_cpp, 3},
     {"_twbfn_joint_post_cpp", (DL_FUNC) &_twbfn_joint_post_cpp, 5},
     {"_twbfn_ppa_mcmc", (DL_FUNC) &_twbfn_ppa_mcmc, 11},
+    {"_twbfn_tgamma_upper", (DL_FUNC) &_twbfn_tgamma_upper, 2},
+    {"_twbfn_ggp_tail", (DL_FUNC) &_twbfn_ggp_tail, 4},
+    {"_twbfn_ggp_tail_invgrad", (DL_FUNC) &_twbfn_ggp_tail_invgrad, 4},
+    {"_twbfn_ggp_rho", (DL_FUNC) &_twbfn_ggp_rho, 4},
+    {"_twbfn_stable_rho", (DL_FUNC) &_twbfn_stable_rho, 2},
+    {"_twbfn_stable_tail", (DL_FUNC) &_twbfn_stable_tail, 2},
+    {"_twbfn_dggp_rho", (DL_FUNC) &_twbfn_dggp_rho, 5},
+    {"_twbfn_dggp_tail", (DL_FUNC) &_twbfn_dggp_tail, 5},
+    {"_twbfn_gg_tail", (DL_FUNC) &_twbfn_gg_tail, 3},
+    {"_twbfn_gg_rho", (DL_FUNC) &_twbfn_gg_rho, 3},
+    {"_twbfn_rho0", (DL_FUNC) &_twbfn_rho0, 4},
+    {"_twbfn_rho1", (DL_FUNC) &_twbfn_rho1, 5},
+    {"_twbfn_rho0hat", (DL_FUNC) &_twbfn_rho0hat, 4},
+    {"_twbfn_rho1hat", (DL_FUNC) &_twbfn_rho1hat, 5},
+    {"_twbfn_sample_edges", (DL_FUNC) &_twbfn_sample_edges, 3},
     {NULL, NULL, 0}
 };
 

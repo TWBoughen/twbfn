@@ -1,8 +1,14 @@
 #include <Rcpp.h>
+#include <random>
+#include <vector>
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_roots.h>
+#include <chrono>
+#include <boost/math/special_functions/gamma.hpp>
+#include <boost/math/quadrature/exp_sinh.hpp>
 
+// [[Rcpp::depends(RcppArmadillo, RcppDist)]]
 
 
 using namespace Rcpp;
@@ -247,4 +253,204 @@ List ppa_mcmc(NumericMatrix data, double init_n0, double init_a, double init_b, 
                       
 }
 
+std::mt19937 rng(std::random_device{}());
+// [[Rcpp::export]]
+double tgamma_upper(double a, double z){
+  return(
+    boost::math::tgamma(a) - boost::math::tgamma_lower(a,z)
+  );
+}
 
+
+// [[Rcpp::export]]
+double ggp_tail(double x, double sigma, double tau,double beta){
+  double mult = pow(beta,sigma*tau) / (sigma*tau*boost::math::tgamma(1-sigma));
+  double p1 = pow(beta*x,-sigma*tau)*boost::math::tgamma_lower(sigma*(tau-1),beta*x);
+  double p2 = -(tgamma_upper(1-sigma,beta*x) - pow(beta*x,-sigma)*exp(-beta*x))/sigma;
+  
+  return(
+    mult*(p1+p2)
+  );
+}
+
+// [[Rcpp::export]]
+double ggp_tail_invgrad(double x, double sigma, double tau,double beta){
+  double top = pow(beta, -sigma*tau)*(tgamma_upper(1-sigma,beta*x) - pow(beta*x,-sigma)*exp(-beta*x));
+  double bottom = sigma*boost::math::tgamma_lower(sigma*(tau-1),beta*x);
+  return(
+    (1-top/bottom)/(sigma*tau)
+  );
+}
+// [[Rcpp::export]]
+double ggp_rho(double x, double sigma, double tau, double beta){
+  return(
+    pow(x,-1-sigma*tau)* boost::math::tgamma_lower(sigma*(tau-1),beta*x)/boost::math::tgamma(1-sigma)
+  );
+}
+
+// [[Rcpp::export]]
+double stable_rho(double x, double sigma){
+  return(
+    sigma*pow(x,-1-sigma)/boost::math::tgamma(1-sigma)
+  );
+}
+
+// [[Rcpp::export]]
+double stable_tail(double x, double sigma){
+  return(
+    pow(x, -sigma)/boost::math::tgamma(1-sigma)
+  );
+}
+
+
+
+// // [[Rcpp::export]]
+// double ggp_mu_integrand(double v, double w, double sigma, double tau, double beta){
+//   return(
+//     -expm1(-2*w*v)*ggp_rho(v, sigma, tau, beta)
+//   );
+// }
+// 
+// // [[Rcpp::export]]
+// double ggp_mu(double w, double sigma, double tau, double beta) {
+//   boost::math::quadrature::exp_sinh<double> integrator;
+//   double error;
+//   double L1;
+//   double result = integrator.integrate(
+//     [&](double v) {
+//       return ggp_mu_integrand(v, w, sigma, tau, beta);
+//    },
+//     0.0,
+//     &error,
+//     &L1
+//   );
+//   return result;
+// }
+
+
+// [[Rcpp::export]]
+double dggp_rho(double x, double sigma, double tau, double beta, double p){
+  return(
+    (p*pow(x*beta, -sigma*tau)*boost::math::tgamma_lower(sigma*(tau-1) + 1, beta*x)+
+      (1-p)*pow(beta, -sigma)*pow(x, -1-sigma)*exp(-beta*x))/boost::math::tgamma(1-sigma)
+  );
+}
+
+// [[Rcpp::export]]
+double dggp_tail(double x, double sigma, double tau, double beta, double p){
+  double rho0 = p/(sigma*tau)*
+    (boost::math::tgamma(1-sigma)+  pow(beta*x, -sigma *tau) * boost::math::tgamma_lower(sigma*(tau-1)+1, beta*x)+tgamma_upper(1-sigma, beta*x));
+  double rho1 = (1-p)/(sigma)*(-tgamma_upper(1-sigma, beta*x) + pow(beta*x, -sigma)*exp(-beta*x));
+  return(
+    (rho1+rho0)/boost::math::tgamma(1-sigma)
+  );
+}
+
+
+// [[Rcpp::export]]
+double gg_tail(double x, double sigma, double beta){
+  
+  double mult = pow(beta,sigma)/(boost::math::tgamma(1-sigma)*sigma);
+  double p1 = pow(beta*x,-sigma)*exp(-beta*x);
+  double p2 = tgamma_upper(1-sigma,beta*x);
+  return(
+    mult*(p1-p2)
+  );
+}
+// [[Rcpp::export]]
+double gg_rho(double w, double sigma, double beta){
+  return(pow(w, -1-sigma)*exp(-beta*w) / boost::math::tgamma(1-sigma));
+}
+
+
+
+// [[Rcpp::export]]
+double rho0(double w, double sigma, double c, double eta){
+  return(
+    eta*pow(w,-1-sigma)*exp(-c*w) / ( pow(c,sigma) * gamma(1-sigma))
+  );
+}
+
+// [[Rcpp::export]]
+double rho1(double w, double sigma, double tau, double c , double eta){
+  return(
+    eta*pow(w,-1-tau) * boost::math::tgamma_lower(tau - sigma + 1, c*w) / ( pow(c,tau) * gamma(1-sigma))
+  );
+}
+
+// [[Rcpp::export]]
+double rho0hat(double w, double sigma, double c, double eta){
+  w = std::max(w,pow(10,-10));
+  return(
+    (eta/(sigma*boost::math::tgamma(1-sigma)))*
+      (pow(c,-sigma)*pow(w, -sigma)*exp(-c*w) - (boost::math::tgamma(1-sigma) - boost::math::tgamma_lower(1-sigma, c*w)))
+  );
+}
+
+
+// [[Rcpp::export]]
+double rho1hat(double w, double sigma, double tau, double c , double eta){
+  w = std::max(w,pow(10,-10));
+  double mult = eta/(tau*boost::math::tgamma(1-sigma));
+  double t1 = boost::math::tgamma(1-sigma) - boost::math::tgamma_lower(1-sigma, c*w);
+  double t2 = pow(c,-tau)*pow(w,-tau)*boost::math::tgamma_lower(tau-sigma+1,c*w);
+  return(mult*(t1+t2));
+}
+
+// // [[Rcpp::export]]
+// NumericMatrix sample_edges(NumericVector ws,double scaling, bool quiet=true){
+//   NumericMatrix edges(pow(ws.size(),2),2); 
+//   int counter=0;
+//   for(int i=0;i<ws.size();i++){
+//     if(!quiet){
+//       std::cout<<i<<std::endl;
+//     }
+//     for(int j=0;j<i;j++){
+//       double W = 1-exp(-2*scaling*ws[i]*ws[j]);
+//       if(W>Rcpp::runif(1)[0]){
+//           edges(counter,0) = i+1;
+//           edges(counter,1) = j+1;
+//           counter=counter+1;
+//       }
+//     }
+//   }
+//   
+//   return(edges(Range(0,counter-1),_));
+//   
+// }
+
+// [[Rcpp::export]]
+NumericMatrix sample_edges(NumericVector ws,
+                           double scaling,
+                           bool quiet = true) {
+  const int n = ws.size();
+  std::vector<int> from, to;
+  
+  for (int i = 0; i < n; ++i) {
+    if (!quiet) Rcpp::Rcout << i << '\n';
+    
+    // One random-number generation call per row.
+    NumericVector u = Rcpp::runif(i);
+    const double wi = ws[i];
+    
+    for (int j = 0; j < i; ++j) {
+      const double W =
+        -std::expm1(-2.0 * scaling * wi * ws[j]);
+        
+        if (u[j] < W) {
+          from.push_back(i + 1);
+          to.push_back(j + 1);
+        }
+    }
+  }
+  
+  const R_xlen_t m = from.size();
+  NumericMatrix edges(m, 2);
+  
+  for (R_xlen_t k = 0; k < m; ++k) {
+    edges(k, 0) = from[k];
+    edges(k, 1) = to[k];
+  }
+  
+  return edges;
+}

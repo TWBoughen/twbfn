@@ -13,7 +13,7 @@ ppa_mle(dat)
 This function will obtain the MLE of the parameters in the PPA model for a given data set.
 }
 \seealso{
-Other model fitting functions: 
-\code{\link{ppa_mcmc}()}
+Other model fitting functions:
+\code{\link[=ppa_mcmc]{ppa_mcmc()}}
 }
 \concept{model fitting functions}

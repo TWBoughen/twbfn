@@ -51,7 +51,7 @@ from the sequence of degrees of a network given that it was generated using the 
 from Rudas.
 }
 \seealso{
-Other model fitting functions: 
-\code{\link{ppa_mle}()}
+Other model fitting functions:
+\code{\link[=ppa_mle]{ppa_mle()}}
 }
 \concept{model fitting functions}
