@@ -143,7 +143,7 @@ simggp = function(N, sigma, tau, beta){
   edges_ggp[,1] = as.character(edges_ggp[,1])
   edges_ggp[,2] = as.character(edges_ggp[,2])
   
-  G = graph_from_edgelist(as.matrix(edges_ggp), directed = F)
+  G = igraph::graph_from_edgelist(as.matrix(edges_ggp), directed = F)
   return(G)
 }
 simstable = function(N, sigma){
@@ -152,7 +152,7 @@ simstable = function(N, sigma){
   edges_ggp[,1] = as.character(edges_ggp[,1])
   edges_ggp[,2] = as.character(edges_ggp[,2])
   
-  G = graph_from_edgelist(as.matrix(edges_ggp), directed = F)
+  G = igraph::graph_from_edgelist(as.matrix(edges_ggp), directed = F)
   return(G)
 }
 
@@ -163,7 +163,7 @@ simgg = function(N, sigma, beta){
   edges_gg[,1] = as.character(edges_gg[,1])
   edges_gg[,2] = as.character(edges_gg[,2])
   
-  G = graph_from_edgelist(as.matrix(edges_gg), directed = F)
+  G = igraph::graph_from_edgelist(as.matrix(edges_gg), directed = F)
   return(G)
 }
 exp_integrand_ggp = function(w, j, nu, sigma, tau, beta){
