@@ -364,19 +364,19 @@ double gg_rho(double w, double sigma, double beta){
 
 
 
-// [[Rcpp::export]]
-double rho0(double w, double sigma, double c, double eta){
-  return(
-    eta*pow(w,-1-sigma)*exp(-c*w) / ( pow(c,sigma) * gamma(1-sigma))
-  );
-}
-
-// [[Rcpp::export]]
-double rho1(double w, double sigma, double tau, double c , double eta){
-  return(
-    eta*pow(w,-1-tau) * boost::math::tgamma_lower(tau - sigma + 1, c*w) / ( pow(c,tau) * gamma(1-sigma))
-  );
-}
+// // [[Rcpp::export]]
+// double rho0(double w, double sigma, double c, double eta){
+//   return(
+//     eta*pow(w,-1-sigma)*exp(-c*w) / ( pow(c,sigma) * gamma(1-sigma))
+//   );
+// }
+// 
+// // [[Rcpp::export]]
+// double rho1(double w, double sigma, double tau, double c , double eta){
+//   return(
+//     eta*pow(w,-1-tau) * boost::math::tgamma_lower(tau - sigma + 1, c*w) / ( pow(c,tau) * gamma(1-sigma))
+//   );
+// }
 
 // [[Rcpp::export]]
 double rho0hat(double w, double sigma, double c, double eta){
