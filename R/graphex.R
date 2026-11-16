@@ -21,6 +21,23 @@ ggp_rho_vec = Vectorize(ggp_rho, vectorize.args = 'x')
 gg_tail_vec = Vectorize(gg_tail,vectorize.args = 'x')
 gg_rho_vec = Vectorize(gg_rho, vectorize.args = 'w')
 
+
+
+
+#' Sample GGP graphex
+#' 
+#' Generates a network using the graphex framework using a PPP on \eqn{(0,\infty)\times (0,\nu)} with mean measure \eqn{\rho_{GGP}(dw)\lambda(d\theta)} where:
+#' \deqn{
+#'  \rho_{GGP}(\mathrm d w) = \frac{w^{-1-\sigma \tau}\gamma(\sigma(\tau-1), \beta w))\mathrm dw}{\Gamma(1-\sigma)}
+#' }
+#' 
+#' 
+#' @param N Average number of nodes (observed and unobserved)
+#' @param sigma in \eqn{(0,1)}
+#' @param tau in \eqn{(0,\infty)}
+#' @param beta in \eqn{(0,\infty)}
+#' @param nu default NULL, if specified overrides \code{N}
+#' 
 #' @export
 ggp_sample = function(N, sigma, tau, beta, nu=NULL){
   
@@ -89,6 +106,19 @@ dggp_sample = function(N, sigma, tau, beta,p){
   
 }
 
+#' Sample GG graphex
+#' 
+#' Generates a network using the graphex framework using a PPP on \eqn{(0,\infty)\times (0,\nu)} with mean measure \eqn{\rho_{GG}(dw)\lambda(d\theta)} where:
+#' \deqn{
+#'  \rho_{GG}(\mathrm dw) = \frac{w^{-1-\sigma}e^{-\beta w}\mathrm d w}{\Gamma(1-\sigma)}
+#' }
+#' 
+#' 
+#' @param N Average number of nodes (observed and unobserved)
+#' @param sigma in \eqn{(0,1)}
+#' @param beta in \eqn{(0,\infty)}
+#' @param nu default NULL, if specified overrides \code{N}
+#' 
 #' @export
 gg_sample = function(N, sigma, beta, nu=NULL){
   
@@ -212,6 +242,10 @@ est_gg = Vectorize(function(j,p, sigma, beta,nu ){
 }, vectorize.args = 'j')
 
 
+
+
+#' Calculate estimator 
+#'
 #' @export
 estimator = Vectorize(function(degcounts, j, p=0.5){
   temp = degcounts[degcounts[,1]>j,]
