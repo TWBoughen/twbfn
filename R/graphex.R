@@ -22,7 +22,7 @@ gg_tail_vec = Vectorize(gg_tail,vectorize.args = 'x')
 gg_rho_vec = Vectorize(gg_rho, vectorize.args = 'w')
 
 #' @export
-ggp_sample = function(N, sigma, tau, beta){
+ggp_sample = function(N, sigma, tau, beta, nu=NULL){
   
   N_mean = N
   wmin = 1e-5
@@ -31,8 +31,10 @@ ggp_sample = function(N, sigma, tau, beta){
   x = 10^seq(-6,6,l=10000)
   y = ggp_tail_vec(x,sigma,tau,beta)
   ggp_tail_inv = approxfun(y,x)
+  if(is.null(nu)){
+    nu = N_mean/ggp_tail_vec(wmin, sigma, tau, beta)
+  }
   
-  nu = N_mean/ggp_tail_vec(wmin, sigma, tau, beta)
   N = rpois(1,N_mean)
   u = runif(N,0,ggp_tail_vec(wmin, sigma, tau, beta))
   w = ggp_tail_inv(u)
@@ -88,7 +90,7 @@ dggp_sample = function(N, sigma, tau, beta,p){
 }
 
 #' @export
-gg_sample = function(N, sigma, beta){
+gg_sample = function(N, sigma, beta, nu=NULL){
   
   
   N_mean = N
@@ -98,8 +100,10 @@ gg_sample = function(N, sigma, beta){
   x = 10^seq(-6,6,l=10000)
   y = gg_tail_vec(x,sigma,beta)
   gg_tail_inv = approxfun(y,x)
+  if(is.null(nu)){
+    nu = N_mean/gg_tail_vec(wmin, sigma, beta)
+  }
   
-  nu = N_mean/gg_tail_vec(wmin, sigma, beta)
   N = rpois(1,nu*gg_tail_vec(wmin, sigma, beta))
   u = runif(N,0,gg_tail_vec(wmin, sigma, beta))
   w = gg_tail_inv(u)
@@ -137,8 +141,8 @@ ggp_mu = Vectorize(function(w, sigma,tau, beta){
 }, vectorize.args = 'w')
 
 #' @export
-simggp = function(N, sigma, tau, beta){
-  w_ggp = ggp_sample(N,sigma,tau,beta)
+simggp = function(N, sigma, tau, beta, nu=NULL){
+  w_ggp = ggp_sample(N,sigma,tau,beta, nu)
   edges_ggp = sample_edges(w_ggp,scaling=1)
   edges_ggp[,1] = as.character(edges_ggp[,1])
   edges_ggp[,2] = as.character(edges_ggp[,2])
@@ -157,8 +161,8 @@ simstable = function(N, sigma){
 }
 
 #' @export
-simgg = function(N, sigma, beta){
-  w_gg = gg_sample(N,sigma,beta)
+simgg = function(N, sigma, beta, nu=NULL){
+  w_gg = gg_sample(N,sigma,beta, nu)
   edges_gg = sample_edges(w_gg,scaling=1)
   edges_gg[,1] = as.character(edges_gg[,1])
   edges_gg[,2] = as.character(edges_gg[,2])
