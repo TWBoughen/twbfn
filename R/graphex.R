@@ -187,6 +187,7 @@ exp_integrand_ggp = function(w, j, nu, sigma, tau, beta){
     pgamma(nu*ggp_mu(w, sigma, tau, beta), shape= j+1, scale=1)*ggp_rho_vec(w, sigma, tau, beta)
   )
 }
+#' @export
 est_ggp = Vectorize(function(j,p, sigma, tau, beta,nu ){
   return(
     (log(pracma::quadinf(exp_integrand_ggp, 0, Inf, j=j, nu=p*nu, sigma=sigma, tau=tau, beta =beta)$Q)-
@@ -198,6 +199,7 @@ exp_integrand_gg = function(w, j, nu, sigma, beta){
     pgamma(nu*gg_mu(w, sigma, beta), shape= j+1, scale=1)*gg_rho_vec(w, sigma, beta)
   )
 }
+#' @export
 est_gg = Vectorize(function(j,p, sigma, beta,nu ){
   return(
     (log(pracma::quadinf(exp_integrand_gg, 0, Inf, j=j, nu=p*nu, sigma=sigma, beta =beta)$Q)-
@@ -234,6 +236,8 @@ estimator_var = Vectorize(function(degcounts, j, p){
     v/(mn^2 * log(p)^2)
   )
 }, vectorize.args = 'j')
+
+#' @export
 rep_estimator = function(degcounts, p,reps){
   df = as.data.frame(rep(degcounts[,1], reps))
   names(df) = 'degree'
@@ -258,6 +262,7 @@ rep_estimator_compress = function(degcounts, p,reps){
   df = df[!is.infinite(df$est),]
   return(df)
 }
+#' @export
 rep_estimator_long = function(degcounts, p,reps){
   df = as.data.frame(rep(degcounts[,1], reps))
   names(df) = 'degree'
@@ -324,12 +329,17 @@ rep_estimator_le_long = function(degcounts, p,reps){
 }
 
 #' @export
-true_estimator = function(G, p){
+true_estimator = function(G, p, long=FALSE){
   selected = rbinom(vcount(G), 1, p)
   degs = degree(G)
   sg = subgraph(G, V(G)[selected==1])
   pdegs= degree(sg)
-  js= unique(degs)
+  if(long){
+    js = 1:max(pdegs)
+  }else{
+    js= unique(degs)
+  }
+  
   ests = sapply(js, FUN = function(j){
     return(
       (log(sum(pdegs>j)) - log(sum(degs>j)))/log(p) - 1
@@ -339,10 +349,10 @@ true_estimator = function(G, p){
 }
 
 #' @export
-rep_true_estimator = function(G, p, reps){
+rep_true_estimator = function(G, p, reps, long=FALSE){
   df = data.frame(degree=NA, est=NA)
   for(i in 1:reps){
-    df = rbind(df, true_estimator(G, p))
+    df = rbind(df, true_estimator(G, p, long))
   } 
   return(df)
 }
