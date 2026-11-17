@@ -428,6 +428,6 @@ estimator_plot = function(degcounts,ps=NULL){
 
 #' @export
 sample_edges = function(w, scaling=1, quiet=TRUE){
-  res = .Call('_twbfn_sample_edges', ws, scaling, quiet)
+  res = .Call('_twbfn_sample_edges', w, scaling, quiet)
   return(res)
 }
