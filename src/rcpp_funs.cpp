@@ -420,6 +420,8 @@ double rho1hat(double w, double sigma, double tau, double c , double eta){
 //   
 // }
 
+
+// sample_edges: Sample edges from sociabilities
 // [[Rcpp::export]]
 NumericMatrix sample_edges(NumericVector ws,
                            double scaling,
@@ -430,7 +432,7 @@ NumericMatrix sample_edges(NumericVector ws,
   for (int i = 0; i < n; ++i) {
     if (!quiet) Rcpp::Rcout << i << '\n';
     
-    // One random-number generation call per row.
+    
     NumericVector u = Rcpp::runif(i);
     const double wi = ws[i];
     
